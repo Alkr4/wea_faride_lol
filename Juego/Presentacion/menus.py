@@ -1,13 +1,15 @@
 from colorama import Fore,Back,Style
 from Aplicacion.reglas import Regla
+from Dominio.Personaje import Personaje
 
-def menu_inicio():
+def menu_inicio()-> Personaje:
     print(Fore.GREEN)
     nombre = input("Ingrese nombre de su jugador: ")
     jugador = Regla.crear_jugador(nombre)
     print(f"Bienvenido {jugador.nombre}")
+    return jugador
 
-def menu_principal()->None:
+def menu_principal(jugador)->None:
     """
     Función que solicita al usuario el número de a 
     opción seleccionada.
@@ -22,5 +24,8 @@ def menu_principal()->None:
     opcion = int(input("Seleccione su opción: "))
     
     if opcion==1:
-        nombre = input("Ingrese nombre de su jugador.")
+        enemigo = Regla.asignar_enemigo()
+        print(f"Te enfrentaras a: {enemigo.nombre} que es nivel {enemigo.nivel} y tiene {enemigo.salud} puntos de salud")
+        resultado_ataque = Regla.atacar(enemigo)
+        print(f"{jugador.nombre} ataca a {enemigo.nombre} y resulta en {resultado_ataque} puntos de daño")
 
